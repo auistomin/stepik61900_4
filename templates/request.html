@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+  <main class="container mt-5">
+    <div class="col-12 col-sm-10 col-lg-6 offset-lg-3 offset-sm-1">
+      <form action="/request_done/" class="card mb-5" method="POST">
+        <div class="card-body text-center pt-5">
+          <h1 class="h3 card-title mt-4 mb-2">Подбор преподавателя</h1>
+          <p class="px-5">Напишите, чего вам нужно и&nbsp;мы&nbsp;подберем отличных&nbsp;ребят</p>
+        </div>
+        <hr>
+        <div class="card-body mx-3">
+          {{ form.csrf_token }}
+          <div class="row">
+            <div class="col">
+              <p>{{ form.clientGoal.label.text }}</p>
+              {% for error in form.clientGoal.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+              {% endfor %}
+              {% for subfield in form.clientGoal %}
+              <div class="form-check ">
+                {{ subfield(class_='form-check-input') }}
+                {{ subfield.label(class_='form-check-label') }}
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col">
+              <p>{{ form.clientTime.label.text }}</p>
+              {% for error in form.clientTime.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+              {% endfor %}
+              {% for subfield in form.clientTime %}
+              <div class="form-check">
+                {{ subfield(class_='form-check-input') }}
+                {{ subfield.label(class_='form-check-label') }}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card-body mx-3">
+
+          {{form.clientName.label(class_="mb-1 mt-2")}}
+          {% for error in form.clientName.errors %}
+          <div class="alert alert-danger" role="alert"> {{ error }} </div>
+          {% endfor %}
+          {{form.clientName(class_="form-control", placeholder="Введите свое имя")}}
+
+          {{form.clientPhone.label(class_="mb-1 mt-2")}}
+          {% for error in form.clientPhone.errors %}
+          <div class="alert alert-danger" role="alert"> {{ error }} </div>
+          {% endfor %}
+          {{form.clientPhone(class_="form-control mask-phone", placeholder="Введите свой телефон")}}
+
+          {{ form.submit(class_="btn btn-primary mt-4 mb-2") }}
+
+        </div>
+      </form>
+    </div>
+  </main>
+
+{% endblock %}
