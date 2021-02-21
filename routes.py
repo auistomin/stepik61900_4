@@ -1,9 +1,10 @@
+from flask import render_template, request, abort
+from numpy import random
+from json import loads as json_loads
+
+from config import week_days, week_times
 from forms import BookingForm, RequestForm, SortingForm
 from models import Goal, Teacher, Booking, Request
-from flask import render_template, request, abort
-from config import week_days, week_times
-from json import loads as json_loads
-from numpy import random
 from app import app, db
 
 
