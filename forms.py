@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import HiddenField, StringField, RadioField, SelectField, SubmitField
 from wtforms.validators import InputRequired, Length, Regexp
 from wtforms.fields.html5 import TelField
+
 from config import week_times, sorting_options
 from models import Goal
 

@@ -1,6 +1,7 @@
+from json import loads as json_loads
+
 from flask import render_template, request, abort
 from numpy import random
-from json import loads as json_loads
 
 from config import week_days, week_times
 from forms import BookingForm, RequestForm, SortingForm
@@ -37,7 +38,7 @@ def render_all():
                 teachers = Teacher.query.order_by(Teacher.price.desc()).all()
             elif sorting == "4":
                 teachers = Teacher.query.order_by(Teacher.price).all()
-    if len(teachers) == 0:
+    if not teachers:
         teachers = Teacher.query.all()
         random.shuffle(teachers)
 
@@ -79,11 +80,11 @@ def render_booking(teacher_id, weekday, time):
     teacher_free = json_loads(teacher.free)
 
     fulltime = time + ":00"
-    if not weekday in teacher_free.keys():
+    if not weekday in teacher_free:
         abort(404)
-    elif not fulltime in teacher_free[weekday].keys():
+    elif not fulltime in teacher_free[weekday]:
         abort(404)
-    elif teacher_free[weekday][fulltime] != True:
+    elif not teacher_free[weekday][fulltime]:
         abort(404)
 
     if request.method == "POST":
