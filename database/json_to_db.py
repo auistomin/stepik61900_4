@@ -1,17 +1,8 @@
 from json import load as json_load, dumps as json_dumps
 from os import path, remove as remove_file
 
-from flask import Flask
-
-from models import db, migrate, Goal, Teacher
-from config import Config
-
-
-app = Flask(__name__)
-app.config.from_object(Config)
-db.init_app(app)
-app.app_context().push()
-migrate.init_app(app, db)
+from app import db
+from models import Goal, Teacher
 
 
 def seed(data_json):
